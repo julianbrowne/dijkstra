@@ -62,17 +62,29 @@ function dijkstra(distances, start, end) {
   
     if(shortestPath[end] < infinity) {
 
+        var newPath = [];
+        var step    = { target: end };
+        var last;
+
         var thePath = [end];
         var v = end;
         
         while (v>0) {
+
             v = pred[v];
-            if (v>=0) thePath.unshift(v);
+
+            if (v>=0) {
+                thePath.unshift(v);
+                step.source = v;
+                newPath.unshift(step);
+                step = {target: v};
+            }
+
         }
 
         totalDistance = shortestPath[end];
         
-        return {mesg:'OK', path:thePath, distance:totalDistance};
+        return {mesg:'OK', path: newPath, distance:totalDistance};
     } 
     else {
         return {mesg:'No path found', path:' ', distance: 0 };

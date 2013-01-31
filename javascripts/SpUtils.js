@@ -48,11 +48,13 @@ SpUtils.drawGraph = function(svg, nodes, paths, result) {
 		.data(paths)
 		.enter()
 			.append("line")
-				.attr("class", function(d) { 
-					if(result&&(result.path.indexOf(d.source.index)===result.path.indexOf(d.target.index)-1)) 
-						return "link bold";
-					else
-						return "link"
+				.attr("class", function(d) {
+					for (var i = 0; i < result.path.length; i++) {
+						if ((result.path[i].source === d.source.index && result.path[i].target === d.target.index)
+						 || (result.path[i].source === d.target.index && result.path[i].target === d.source.index))
+							return 'link bold';
+					}
+					return 'link';
 				})
 				.attr("x1", function(d) { return d.source.x; })
 				.attr("y1", function(d) { return d.source.y; })
@@ -295,9 +297,11 @@ SpUtils.formatResult = function(result, nodes) {
 	res += "<p>Path   : ";
 
 	for(var i=0; i<result.path.length; i++) {
-		var nodeIndex = result.path[i];
-		var node = nodes[nodeIndex];
-		res += node.value + ' ';
+		var sourceNodeIndex = result.path[i].source;
+		var targetNodeIndex = result.path[i].target;
+		var sourceNode = nodes[sourceNodeIndex];
+		var targetNode = nodes[targetNodeIndex];
+		res += ' ' + sourceNode.value + ' -> ' + targetNode.value;
 	}
 	res += "</p>";
 	res += "<p>Distance : " + result.distance + "</p>";
