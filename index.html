@@ -4,79 +4,68 @@
 <head>
 	<meta charset="utf-8">
 	<title>Dijkstra's Shortest Path Calculator</title>
-	<link href="http://julianbrowne.com/assets/style.css?body=1" media="screen" rel="stylesheet" type="text/css" />
-	<link href="http://julianbrowne.com/assets/font-awesome.css?body=1" media="screen" rel="stylesheet" type="text/css" />
-	<link href="http://julianbrowne.com/assets/article.css?body=1" media="screen" rel="stylesheet" type="text/css" />
 </head>
 <body>
-	<div id="content">
-		<div class="article">
-			<h1>Dijkstra's Shortest Path Calculator</h1>
-			<h2>An interactive exploration of the famous Dijkstra algorithm</h2>
+	<h1>Dijkstra's Shortest Path Calculator</h1>
+	<h2>An interactive exploration of the famous Dijkstra algorithm</h2>
 
-			<p>
-				Number of nodes : <input type="text" id="numberOfNodes" name="sp-nodes" value="5"/>
-				<input type="submit" value=" make table " 
-					onclick="SpUtils.makeTable(document.getElementById('numberOfNodes').value);" />
-			</p>
+	<p>
+		Number of nodes : <input type="text" id="numberOfNodes" name="sp-nodes" value="5"/>
+		<input type="submit" value=" make table " 
+			onclick="SpUtils.makeTable(document.getElementById('numberOfNodes').value);" />
+	</p>
 
-			<div id="distances"></div>
-			<div id="results"></div>
-			<div id="graph"></div>
+	<div id="distances"></div>
+	<div id="results"></div>
+	<div id="graph"></div>
 
-			<link href="stylesheets/shortest-path.css" rel="stylesheet" type="text/css" />
-			<script type="text/javascript" src="javascripts/d3.v3.min.js"></script>
-			<script type="text/javascript" src="javascripts/dijkstra.js"></script>
-			<script type="text/javascript" src="javascripts/SpUtils.js"></script>
-			<script type="text/javascript">
+	<link href="stylesheets/shortest-path.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="javascripts/d3.v3.min.js"></script>
+	<script type="text/javascript" src="javascripts/dijkstra.js"></script>
+	<script type="text/javascript" src="javascripts/SpUtils.js"></script>
+	<script type="text/javascript">
 
-				var nodes = [
-					{ index: 0, value: 'a', r: 20 },
-					{ index: 1, value: 'b', r: 20 },
-					{ index: 2, value: 'c', r: 20 },
-					{ index: 3, value: 'd', r: 20 },
-					{ index: 4, value: 'e', r: 20 }
-				];
+		var nodes = [
+			{ index: 0, value: 'a', r: 20 },
+			{ index: 1, value: 'b', r: 20 },
+			{ index: 2, value: 'c', r: 20 },
+			{ index: 3, value: 'd', r: 20 },
+			{ index: 4, value: 'e', r: 20 }
+		];
 
-				var paths = [
-					{ source: 0, target: 1, distance: 150 },
-					{ source: 0, target: 2, distance: 100 },
-					{ source: 2, target: 3, distance: 100 },
-					{ source: 1, target: 3, distance: 40  },
-					{ source: 3, target: 4, distance: 100 },
-					{ source: 1, target: 4, distance: 100 }
-				];
+		var paths = [
+			{ source: 0, target: 1, distance: 150 },
+			{ source: 0, target: 2, distance: 100 },
+			{ source: 2, target: 3, distance: 100 },
+			{ source: 1, target: 3, distance: 40  },
+			{ source: 3, target: 4, distance: 100 },
+			{ source: 1, target: 4, distance: 100 }
+		];
 
-				var max = 50;
-				paths.forEach(function(d, i) { if(d.distance > max) { max = d.distance; } });
+		var max = 50;
+		paths.forEach(function(d, i) { if(d.distance > max) { max = d.distance; } });
 
-				console.log("max => " + max);
+		console.log("max => " + max);
 
-				var map = {};
-				map.width = max*4;
-				map.height = max*2;
+		var map = {};
+		map.width = max*4;
+		map.height = max*2;
 
-				var target = d3.select("#graph");
+		var target = d3.select("#graph");
 
-				svg = target.append("svg:svg")
-					.attr("width", map.width)
-					.attr("height", map.height);
+		svg = target.append("svg:svg")
+			.attr("width", map.width)
+			.attr("height", map.height);
 
-				var result = SpUtils.findRoute(nodes, paths);
+		var result = SpUtils.findRoute(nodes, paths);
 
-				console.log(result);
+		console.log(result);
 
-				document.getElementById('results').innerHTML  = SpUtils.formatResult(result, nodes);
+		document.getElementById('results').innerHTML  = SpUtils.formatResult(result, nodes);
 
-				SpUtils.drawGraph(svg, nodes, paths, result);
+		SpUtils.drawGraph(svg, nodes, paths, result);
 
 
-			</script>
-
-</div><!-- /article -->
-	</div><!-- /content -->
-	<div id="footer">
-		<h1>&copy; Copyright: 2013 Julian Browne. All rights reserved.</h1>
-	</div>
+	</script>
 </body>
 </html>
