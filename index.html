@@ -42,14 +42,9 @@
 			{ source: 1, target: 4, distance: 100 }
 		];
 
-		var max = 50;
-		paths.forEach(function(d, i) { if(d.distance > max) { max = d.distance; } });
-
-		console.log("max => " + max);
-
 		var map = {};
-		map.width = max*4;
-		map.height = max*2;
+		map.width = 800;
+		map.height = 400;
 
 		var target = d3.select("#graph");
 
@@ -57,13 +52,11 @@
 			.attr("width", map.width)
 			.attr("height", map.height);
 
-		var result = SpUtils.findRoute(nodes, paths);
+		var route = SpUtils.findRoute(nodes, paths);
 
-		console.log(result);
+		document.getElementById('results').innerHTML  = SpUtils.formatResult(route, nodes);
 
-		document.getElementById('results').innerHTML  = SpUtils.formatResult(result, nodes);
-
-		SpUtils.drawGraph(svg, nodes, paths, result);
+		SpUtils.drawGraph(svg, nodes, paths, route);
 
 
 	</script>

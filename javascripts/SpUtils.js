@@ -224,7 +224,11 @@ SpUtils.callDrawGraph = function()
 	svg.selectAll("circle").remove();
 	svg.selectAll("text").remove();
 
-	SpUtils.drawGraph(svg, nodes, paths);
+	var route = SpUtils.findRoute(nodes, paths);
+
+	document.getElementById('results').innerHTML  = SpUtils.formatResult(route, nodes);
+
+	SpUtils.drawGraph(svg, nodes, paths, route);
 
 }
 
@@ -292,7 +296,6 @@ SpUtils.formatResult = function(result, nodes) {
 
 	for(var i=0; i<result.path.length; i++) {
 		var nodeIndex = result.path[i];
-		console.log(nodeIndex);
 		var node = nodes[nodeIndex];
 		res += node.value + ' ';
 	}
