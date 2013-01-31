@@ -65,11 +65,17 @@ function dijkstra(distances, start, end) {
         var newPath = [];
         var step    = { target: parseInt(end) };
 
-        var v = end;
+        var v = parseInt(end);
+
+        //console.log('v');
+        //console.log(v);
         
-        while (v>0) {
+        while (v>=0) {
 
             v = pred[v];
+
+            //console.log('v');
+            //console.log(v);
 
             if (v!==null && v>=0) {
                 step.source = v;

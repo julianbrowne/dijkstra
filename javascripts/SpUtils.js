@@ -147,13 +147,21 @@ SpUtils.makeTable = function(nodes) {
 
 	target.appendChild(table);
 
+	var p1 = document.createElement('span')
+	p1.innerHTML = " From : ";
+	target.appendChild(p1);
+
 	var sourceDropDown = SpUtils.makeDropDown("source", nodes);
 	target.appendChild(sourceDropDown);
+
+	var p2 = document.createElement('span')
+	p2.innerHTML = " To : ";
+	target.appendChild(p2);
 
 	var targetDropDown = SpUtils.makeDropDown("target", nodes);
 	target.appendChild(targetDropDown);
 
-	var submit = SpUtils.makeSubmitInput(" make visualisation ");
+	var submit = SpUtils.makeSubmitInput(" find route ");
 	target.appendChild(submit);
 
 }
@@ -253,12 +261,13 @@ SpUtils.callDrawGraph = function()
 	svg.selectAll("circle").remove();
 	svg.selectAll("text").remove();
 
-	// console.log(source);
-	// console.log(target);
+	//console.log(source);
+	//console.log(target);
 
 	var route = SpUtils.findRoute(nodes, paths, source, target);
 
-	console.log(route);
+	//console.log("route");
+	//console.log(route);
 
 	document.getElementById('results').innerHTML  = SpUtils.formatResult(route, nodes);
 
