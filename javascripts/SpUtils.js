@@ -15,11 +15,11 @@ SpUtils.maxNodesforDemo = 20;
 
 SpUtils.nodeNames = 'abcdefghijklmnopqrstuvwxyz';
 
-SpUtils.findRoute = function(nodes, paths) {
+SpUtils.findRoute = function(nodes, paths, source, target) {
 
 	var distances = SpUtils.makeDistanceArrayFromNodes(nodes);
 	distances = SpUtils.populateDistances(distances, paths);
-	return dijkstra(distances, 0, (nodes.length-1) );
+	return dijkstra(distances, source, target);
 
 }
 
@@ -49,10 +49,12 @@ SpUtils.drawGraph = function(svg, nodes, paths, result) {
 		.enter()
 			.append("line")
 				.attr("class", function(d) {
-					for (var i = 0; i < result.path.length; i++) {
-						if ((result.path[i].source === d.source.index && result.path[i].target === d.target.index)
-						 || (result.path[i].source === d.target.index && result.path[i].target === d.source.index))
-							return 'link bold';
+					if(result.path !== null) {
+						for (var i = 0; i < result.path.length; i++) {
+							if ((result.path[i].source === d.source.index && result.path[i].target === d.target.index)
+							 || (result.path[i].source === d.target.index && result.path[i].target === d.source.index))
+								return 'link bold';
+						}
 					}
 					return 'link';
 				})
@@ -145,8 +147,13 @@ SpUtils.makeTable = function(nodes) {
 
 	target.appendChild(table);
 
-	var submit = SpUtils.makeSubmitInput(" make visualisation ")
+	var sourceDropDown = SpUtils.makeDropDown("source", nodes);
+	target.appendChild(sourceDropDown);
 
+	var targetDropDown = SpUtils.makeDropDown("target", nodes);
+	target.appendChild(targetDropDown);
+
+	var submit = SpUtils.makeSubmitInput(" make visualisation ");
 	target.appendChild(submit);
 
 }
@@ -168,6 +175,7 @@ SpUtils.makeTextInput = function(from, to) {
 	input = SpUtils.addElementProperty(input,"type", "text");
 	input = SpUtils.addElementProperty(input,"name", field);
 	input = SpUtils.addElementProperty(input,"class", 'spdist');
+	input = SpUtils.addElementProperty(input,"onblur", function() { SpUtils.callDrawGraph(); });
 	input = SpUtils.addElementProperty(input,"id",   field);
 	input = SpUtils.addElementProperty(input,"size", "3");
 	return input;
@@ -181,6 +189,21 @@ SpUtils.makeSubmitInput = function(value) {
 	return input;
 }
 
+SpUtils.makeDropDown = function(value, nodes) {
+	var input = document.createElement('select');
+	input = SpUtils.addElementProperty(input,"id", value);
+	input = SpUtils.addElementProperty(input,"name", value);
+
+	for(var i=0; i<nodes; i++) {
+		var option = document.createElement('option');
+		option = SpUtils.addElementProperty(option, "value", i);
+		option.innerHTML = SpUtils.nodeNames[i];
+		input.appendChild(option);
+	}
+
+	return input;
+}
+
 SpUtils.addElementProperty = function(element,newProperty,newValue) {
 	if (document.all)
 		element[newProperty] = newValue;
@@ -190,6 +213,8 @@ SpUtils.addElementProperty = function(element,newProperty,newValue) {
 	if(newProperty.toLowerCase()=='class')
 		element.className = newValue;
 	if(newProperty.toLowerCase()=='onblur')
+		element.onblur = newValue;
+	if(newProperty.toLowerCase()=='onchange')
 		element.onblur = newValue;
 	if(newProperty.toLowerCase()=='onclick')
 		element.onclick = newValue;
@@ -203,6 +228,8 @@ SpUtils.callDrawGraph = function()
 	var tmpnd = [];
 
 	var distances = document.getElementsByClassName("spdist");
+	var source = document.getElementById("source").options[document.getElementById("source").selectedIndex].value;
+	var target = document.getElementById("target").options[document.getElementById("target").selectedIndex].value;
 
 	for(var i=0; i<distances.length; i++) { 
 		if(distances[i].value != '' && parseInt(distances[i].value) && distances[i].value != 0) {
@@ -226,7 +253,12 @@ SpUtils.callDrawGraph = function()
 	svg.selectAll("circle").remove();
 	svg.selectAll("text").remove();
 
-	var route = SpUtils.findRoute(nodes, paths);
+	// console.log(source);
+	// console.log(target);
+
+	var route = SpUtils.findRoute(nodes, paths, source, target);
+
+	console.log(route);
 
 	document.getElementById('results').innerHTML  = SpUtils.formatResult(route, nodes);
 
@@ -291,9 +323,20 @@ SpUtils.formatResult = function(result, nodes) {
 
 	// result => {mesg:"OK", path:[0, 1, 4], distance:250}
 
+	//console.log(result);
+	//console.log(nodes);
+
 	var res = "";
 
 	res += "<p>Result : " + result.mesg + "</p>";
+
+	if(result.path === null)
+		return "<p>No path found from " + result.source + " to " + result.target + "</p>";
+
+	if(result.path.length === 0)
+		return "<p>Path is from " + SpUtils.nodeNames[result.source] + " to "
+			+ SpUtils.nodeNames[result.target] + ". Expect a journey time of approximately zero.</p>"
+
 	res += "<p>Path   : ";
 
 	for(var i=0; i<result.path.length; i++) {

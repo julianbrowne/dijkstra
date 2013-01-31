@@ -52,7 +52,7 @@
 			.attr("width", map.width)
 			.attr("height", map.height);
 
-		var route = SpUtils.findRoute(nodes, paths);
+		var route = SpUtils.findRoute(nodes, paths, 0, nodes.length-1);
 
 		document.getElementById('results').innerHTML  = SpUtils.formatResult(route, nodes);
 
