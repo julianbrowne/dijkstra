@@ -1,0 +1,39 @@
+
+svg
+{
+	border: 1px solid gray;
+}
+
+.link
+{
+	stroke: #000000;
+}
+
+.bold
+{
+	stroke: #FF0000;
+	stroke-width: 4;
+}
+
+.label
+{
+	fill: #FFFFFF;
+	stroke: #FFFFFF;
+}
+
+.node
+{
+	fill: #3E4552;
+	stroke: #3E4552;
+}
+
+table.input
+{
+	margin: 10px 30px;
+}
+
+table.input td
+{
+	width: 60px;
+	text-align: center;
+}
