@@ -23,19 +23,37 @@ SpUtils.findRoute = function(nodes, paths, source, target) {
 
 }
 
+SpUtils.makeSVG = function(elementId, width, height) {
+
+	var map = {};
+	map.width = width;
+	map.height = height;
+
+	SpUtils.clearDiv(elementId);
+
+	var target = d3.select('#' + elementId);
+
+	var svg = target.append("svg:svg")
+		.attr("width", map.width)
+		.attr("height", map.height);
+
+	return { graph: svg, dimensions: map };
+
+}
+
 SpUtils.drawGraph = function(svg, nodes, paths, result) {
 
-	nodes.forEach(function(d, i) { d.x = d.y = map.width / nodes.length * i});
+	nodes.forEach(function(d, i) { d.x = d.y = svg.dimensions.width / nodes.length * i});
 
 	var force = d3.layout.force()
 		.nodes(nodes)
 		.links(paths)
 		.charge(-500)
 		.linkDistance(function(d){ return d.distance; })
-		.size([map.width, map.height]);
+		.size([svg.dimensions.width, svg.dimensions.height]);
 
 	force.on("tick", function(e) {
-		svg.selectAll("path")
+		svg.graph.selectAll("path")
 			.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 	});
 
@@ -44,7 +62,7 @@ SpUtils.drawGraph = function(svg, nodes, paths, result) {
 	for (var i = j * j; i > 0; --i) force.tick();
 	force.stop();
 
-	svg.selectAll("line")
+	svg.graph.selectAll("line")
 		.data(paths)
 		.enter()
 			.append("line")
@@ -63,7 +81,7 @@ SpUtils.drawGraph = function(svg, nodes, paths, result) {
 				.attr("x2", function(d) { return d.target.x; })
 				.attr("y2", function(d) { return d.target.y; });
 
-	svg.append("svg:g")
+	svg.graph.append("svg:g")
 		.selectAll("circle")
 			.data(nodes)
 			.enter()
@@ -73,7 +91,7 @@ SpUtils.drawGraph = function(svg, nodes, paths, result) {
 					.attr("cy", function(d) { return d.y; })
 					.attr("r",  function(d) { return 15; });
 
-	svg.append("svg:g")
+	svg.graph.append("svg:g")
 		.selectAll("text")
 			.data(nodes)
 			.enter()
@@ -87,6 +105,10 @@ SpUtils.drawGraph = function(svg, nodes, paths, result) {
 }
 
 SpUtils.makeTable = function(nodes) {
+
+	var integerRegex = /^\d+$/;
+
+	if(!integerRegex.test(nodes)) return;
 
 	nodes = parseInt(nodes);
 
@@ -147,22 +169,26 @@ SpUtils.makeTable = function(nodes) {
 
 	target.appendChild(table);
 
-	var p1 = document.createElement('span')
+	var p0 = document.createElement('p');
+
+	var p1 = document.createElement('span');
 	p1.innerHTML = " From : ";
-	target.appendChild(p1);
+	p0.appendChild(p1);
 
 	var sourceDropDown = SpUtils.makeDropDown("source", nodes);
-	target.appendChild(sourceDropDown);
+	p0.appendChild(sourceDropDown);
 
-	var p2 = document.createElement('span')
+	var p2 = document.createElement('span');
 	p2.innerHTML = " To : ";
-	target.appendChild(p2);
+	p0.appendChild(p2);
 
 	var targetDropDown = SpUtils.makeDropDown("target", nodes);
-	target.appendChild(targetDropDown);
+	p0.appendChild(targetDropDown);
 
 	var submit = SpUtils.makeSubmitInput(" find route ");
-	target.appendChild(submit);
+	p0.appendChild(submit);
+
+	target.appendChild(p0);
 
 }
 
@@ -255,12 +281,6 @@ SpUtils.callDrawGraph = function()
 
 	var nodes = SpUtils.sortUniqueNodesFromDistances(tmpnd)
 
-	var svg = d3.select("#graph svg");  // TODO fix ref
-
-	svg.selectAll("line").remove();
-	svg.selectAll("circle").remove();
-	svg.selectAll("text").remove();
-
 	//console.log(source);
 	//console.log(target);
 
@@ -270,6 +290,12 @@ SpUtils.callDrawGraph = function()
 	//console.log(route);
 
 	document.getElementById('results').innerHTML  = SpUtils.formatResult(route, nodes);
+
+	var svg = SpUtils.makeSVG('graph2', 800, 400);
+
+	svg.graph.selectAll("line").remove();
+	svg.graph.selectAll("circle").remove();
+	svg.graph.selectAll("text").remove();
 
 	SpUtils.drawGraph(svg, nodes, paths, route);
 
@@ -326,7 +352,6 @@ SpUtils.makeDistanceArrayFromNodes = function(nodes) {
 	return distances;
 
 }
-
 
 SpUtils.formatResult = function(result, nodes) {
 

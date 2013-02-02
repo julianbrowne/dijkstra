@@ -4,6 +4,11 @@ svg
 	border: 1px solid gray;
 }
 
+.spgraph
+{
+	margin: 50px;
+}
+
 .link
 {
 	stroke: #000000;
@@ -29,7 +34,7 @@ svg
 
 table.input
 {
-	margin: 10px 30px;
+	margin: 20px 50px;
 }
 
 table.input td

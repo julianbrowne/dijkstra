@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE HTML>
 <head>
 	<meta charset="utf-8">
@@ -9,15 +7,16 @@
 	<h1>Dijkstra's Shortest Path Calculator</h1>
 	<h2>An interactive exploration of the famous Dijkstra algorithm</h2>
 
+	<div class="spgraph" id="graph"></div>
 	<p>
-		Number of nodes : <input type="text" id="numberOfNodes" name="sp-nodes" value="5"/>
+		Number of nodes : <input type="text" id="numberOfNodes" style="width: 30px;" name="sp-nodes" value="5"/>
 		<input type="submit" value=" make table " 
 			onclick="SpUtils.makeTable(document.getElementById('numberOfNodes').value);" />
 	</p>
 
 	<div id="distances"></div>
 	<div id="results"></div>
-	<div id="graph"></div>
+	<div class="spgraph" id="graph2"></div>
 
 	<link href="stylesheets/shortest-path.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="javascripts/d3.v3.min.js"></script>
@@ -37,20 +36,13 @@
 			{ source: 0, target: 1, distance: 150 },
 			{ source: 0, target: 2, distance: 100 },
 			{ source: 2, target: 3, distance: 100 },
+			{ source: 2, target: 4, distance: 160 },
 			{ source: 1, target: 3, distance: 40  },
 			{ source: 3, target: 4, distance: 100 },
 			{ source: 1, target: 4, distance: 100 }
 		];
 
-		var map = {};
-		map.width = 800;
-		map.height = 400;
-
-		var target = d3.select("#graph");
-
-		svg = target.append("svg:svg")
-			.attr("width", map.width)
-			.attr("height", map.height);
+		var svg = SpUtils.makeSVG('graph', 800, 400);
 
 		var route = SpUtils.findRoute(nodes, paths, 0, nodes.length-1);
 
