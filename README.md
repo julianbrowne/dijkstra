@@ -64,5 +64,5 @@ Additionally, you can format the result for display and graph it using d3.js
 
     document.getElementById('results').innerHTML = result;
 
-    sp.drawGraph('graph');
+    sp.drawGraph('graph'); // 'graph' is the id of the div to place the graph in
 
