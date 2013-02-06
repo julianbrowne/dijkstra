@@ -32,11 +32,7 @@ describe("ShortestPathUtils", function () {
     });
 
     it("should exist", function() {
-        expect(SpUtils).toBeDefined();
-    });
-
-    it("should find valid route", function() {
-        expect(SpUtils.findRoute(nodes, paths).mesg).toEqual("OK");
+        expect(ShortestPathUtils).toBeDefined();
     });
 
     it("should clear div contents", function() {
@@ -47,42 +43,29 @@ describe("ShortestPathUtils", function () {
         var fakeElement = document.getElementById('fake-div')
 
         expect(fakeElement.innerHTML).toContain("<p></p>");
-        SpUtils.clearDiv('fake-div');
+        ShortestPathUtils.clearDiv('fake-div');
         expect(fakeElement.innerHTML).not.toContain("<p></p>");
     });
 
     it("should make appropriate input field", function() {
-        expect(SpUtils.makeTextInput('a','b').getAttribute("name")).toEqual("a:b");
+        expect(ShortestPathUtils.makeTextInput('a','b').getAttribute("name")).toEqual("a:b");
     });
 
     it("should make appropriate submit button", function() {
-        expect(SpUtils.makeSubmitInput('a').getAttribute("value")).toEqual("a");
-        expect(SpUtils.makeSubmitInput('a').getAttribute("type")).toEqual("submit");
-        expect(SpUtils.makeSubmitInput('a').getAttribute("onclick")).toMatch(/callDrawGraph/);
+        expect(ShortestPathUtils.makeSubmitInput('a').getAttribute("value")).toEqual("a");
+        expect(ShortestPathUtils.makeSubmitInput('a').getAttribute("type")).toEqual("submit");
+        expect(ShortestPathUtils.makeSubmitInput('a').getAttribute("onclick")).toMatch(/callDrawGraph/);
     });
 
     it("should add element properties", function() {
         var div = document.createElement('div');
-        expect(SpUtils.addElementProperty(div,'class','abc').getAttribute("class")).toEqual("abc");
-        expect(SpUtils.addElementProperty(div,'other','123').getAttribute("other")).toEqual("123");
+        expect(ShortestPathUtils.addElementProperty(div,'class','abc').getAttribute("class")).toEqual("abc");
+        expect(ShortestPathUtils.addElementProperty(div,'other','123').getAttribute("other")).toEqual("123");
     });
 
     it("should sort unique nodes from distances", function() {
         var distances = [0,1,1,2,2,3,3,4,4,5];
-        expect(SpUtils.sortUniqueNodesFromDistances(distances).length).toEqual(6);
-    });
-
-    it("should make suitable clean array for populating", function() {
-        var nodes = [ 1 ];
-        expect(SpUtils.makeDistanceArrayFromNodes(nodes)).toEqual([['x']]);
-        var nodes = [ 1,2,3,4 ];
-        expect(SpUtils.makeDistanceArrayFromNodes(nodes)).toEqual([['x','x','x','x'],['x','x','x','x'],['x','x','x','x'],['x','x','x','x']]);
-    });
-
-    it("should make suitable array for use in dijkstra algorithm", function() {
-        var nodes = [ ['x','x'],['x','x'] ];
-        var paths = [ {source:0, target:1, distance: 100} ];
-        expect(SpUtils.populateDistances(nodes, paths)).toEqual([['x',100],[100,'x']]);
+        expect(ShortestPathUtils.sortUniqueNodesFromDistances(distances).length).toEqual(6);
     });
 
 });

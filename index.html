@@ -11,17 +11,22 @@
 	<p>
 		Number of nodes : <input type="text" id="numberOfNodes" style="width: 30px;" name="sp-nodes" value="5"/>
 		<input type="submit" value=" make table " 
-			onclick="SpUtils.makeTable(document.getElementById('numberOfNodes').value);" />
+			onclick="ShortestPathUtils.makeTable(document.getElementById('numberOfNodes').value);" />
 	</p>
 
 	<div id="distances"></div>
 	<div id="results"></div>
-	<div class="spgraph" id="graph2"></div>
+	<div id="graph" class="spgraph" ></div>
+
+	<div id="distances2"></div>
+	<div id="results2"></div>
+	<div id="graph2" class="spgraph" ></div>
+
 
 	<link href="stylesheets/shortest-path.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="javascripts/d3.v3.min.js"></script>
-	<script type="text/javascript" src="javascripts/dijkstra.js"></script>
-	<script type="text/javascript" src="javascripts/SpUtils.js"></script>
+	<script type="text/javascript" src="javascripts/ShortestPathCalculator.js"></script>
+	<script type="text/javascript" src="javascripts/ShortestPathUtils.js"></script>
 	<script type="text/javascript">
 
 		var nodes = [
@@ -42,13 +47,15 @@
 			{ source: 1, target: 4, distance: 100 }
 		];
 
-		var svg = SpUtils.makeSVG('graph', 800, 400);
+		var sp1 = new ShortestPathCalculator(nodes, paths);
 
-		var route = SpUtils.findRoute(nodes, paths, 0, nodes.length-1);
+		var route = sp1.findRoute(0,4);
 
-		document.getElementById('results').innerHTML  = SpUtils.formatResult(route, nodes);
+		var result = sp1.formatResult();
 
-		SpUtils.drawGraph(svg, nodes, paths, route);
+		document.getElementById('results').innerHTML = result;
+
+		sp1.drawGraph('graph');
 
 	</script>
 </body>
