@@ -1,0 +1,229 @@
+/* ── Reset & base ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: #f0f2f5;
+  color: #2c3442;
+}
+
+/* ── Header ───────────────────────────────────────────────────────── */
+h1 {
+  margin: 0;
+  padding: 28px 40px 10px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: #3e4552;
+  letter-spacing: 0.01em;
+}
+
+h2 {
+  margin: 0;
+  padding: 10px 40px 24px;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: #aab2c0;
+  background: #3e4552;
+}
+
+/* ── Page layout ──────────────────────────────────────────────────── */
+body > p,
+body > div {
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── Graph containers ─────────────────────────────────────────────── */
+.spgraph {
+  margin: 32px auto;
+  padding: 16px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  max-width: 900px;
+}
+
+/* ── SVG / D3 graph ───────────────────────────────────────────────── */
+svg {
+  display: block;
+  border: none;
+  border-radius: 6px;
+  background: #f8f9fb;
+}
+
+.link {
+  stroke: #8c95a6;
+  stroke-width: 1.5;
+}
+
+.bold {
+  stroke: #e74c3c;
+  stroke-width: 3.5;
+}
+
+.label {
+  fill: #ffffff;
+  stroke: none;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+.node {
+  fill: #3e4552;
+  stroke: #5b6475;
+  stroke-width: 2;
+}
+
+/* ── Controls bar ─────────────────────────────────────────────────── */
+body > p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  margin-top: 28px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #4a5568;
+}
+
+/* ── Text inputs ──────────────────────────────────────────────────── */
+input[type="text"] {
+  padding: 6px 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 0.875rem;
+  color: #2c3442;
+  background: #f8f9fb;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  outline: none;
+}
+
+input[type="text"]:focus {
+  border-color: #5b9bd5;
+  box-shadow: 0 0 0 3px rgba(91,155,213,0.20);
+  background: #ffffff;
+}
+
+input.spdist {
+  width: 56px;
+  text-align: center;
+}
+
+/* ── Buttons ──────────────────────────────────────────────────────── */
+input[type="submit"] {
+  padding: 7px 18px;
+  background: #3e4552;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: background 0.15s, transform 0.1s;
+}
+
+input[type="submit"]:hover  { background: #525d6e; }
+input[type="submit"]:active { transform: translateY(1px); }
+
+/* ── Distance input table ─────────────────────────────────────────── */
+#distances, #distances2 {
+  max-width: 960px;
+  margin: 20px auto 0;
+  padding: 0 0 4px;
+  overflow-x: auto;
+}
+
+table.input {
+  margin: 20px auto;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+table.input th,
+table.input td {
+  width: 64px;
+  height: 42px;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid #e8eaed;
+  font-size: 0.85rem;
+}
+
+table.input th {
+  background: #3e4552;
+  color: #ffffff;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+table.input td {
+  background: #fafbfc;
+  color: #6b7480;
+}
+
+table.input tr:hover td { background: #f0f4f8; }
+
+/* ── From / To controls row ───────────────────────────────────────── */
+#distances p,
+#distances2 p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  max-width: max-content;
+  margin: 0 auto 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #4a5568;
+}
+
+select {
+  padding: 6px 28px 6px 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 0.875rem;
+  color: #2c3442;
+  background: #f8f9fb url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath fill='%236b7480' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E") no-repeat right 10px center;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+select:focus {
+  border-color: #5b9bd5;
+  box-shadow: 0 0 0 3px rgba(91,155,213,0.20);
+}
+
+/* ── Results text ─────────────────────────────────────────────────── */
+#results, #results2 {
+  max-width: 960px;
+  margin: 16px auto;
+  padding: 14px 20px;
+  background: #ffffff;
+  border-left: 4px solid #3e4552;
+  border-radius: 0 8px 8px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #2c3442;
+  min-height: 0;
+}
+
+#results:empty, #results2:empty { display: none; }

@@ -1,15 +1,17 @@
 
-###Dijkstra's Shortest Path
+# Dijkstra's Shortest Path
 
-This is a collection of simple javascripts to illustrate Dijkstra's famous algorithm
+## Overview
 
-Simply download the whole lot and open index.html in a browser. There are some basic jasmine tests to ensure the utility functions (mostly handy shortcuts for DOM manipulation) are working fine. These can be run by viewing tests/index.html
+This is a collection of simple scripts to illustrate Dijkstra's famous algorithm. The explanatory text can be found on the [blog](http://www.julianbrowne.com/article/viewer/shortest-path).
 
-The wrap around explanatory text can be found at:
+Simply download and open index.html in a browser.
 
-http://www.julianbrowne.com/article/viewer/shortest-path
+## Tests
 
-**Usage**
+There are some basic jasmine tests to ensure the utility functions (mostly handy shortcuts for DOM manipulation) are working fine. These can be run by viewing tests/index.html
+
+## Usage
 
 Create some 'nodes' in a format that can be parsed by d3.js:
 
@@ -65,4 +67,3 @@ Additionally, you can format the result for display and graph it using d3.js
     document.getElementById('results').innerHTML = result;
 
     sp.drawGraph('graph'); // 'graph' is the id of the div to place the graph in
-
