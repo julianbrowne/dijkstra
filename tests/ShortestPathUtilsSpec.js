@@ -68,4 +68,54 @@ describe("ShortestPathUtils", function () {
         expect(ShortestPathUtils.sortUniqueNodesFromDistances(distances).length).toEqual(6);
     });
 
+    it("should return -1 when clearing a non-existent element", function() {
+        expect(ShortestPathUtils.clearDiv('does-not-exist')).toEqual(-1);
+    });
+
+    it("should give the text input the spdist class", function() {
+        expect(ShortestPathUtils.makeTextInput('a','b').getAttribute("class")).toEqual("spdist");
+    });
+
+    it("should give the text input an id matching its name", function() {
+        var input = ShortestPathUtils.makeTextInput('a','b');
+        expect(input.getAttribute("id")).toEqual(input.getAttribute("name"));
+    });
+
+    it("should make text input of type text", function() {
+        expect(ShortestPathUtils.makeTextInput('a','b').getAttribute("type")).toEqual("text");
+    });
+
+    it("should make a select element with the correct id", function() {
+        var select = ShortestPathUtils.makeDropDown("source", 3);
+        expect(select.tagName.toLowerCase()).toEqual("select");
+        expect(select.getAttribute("id")).toEqual("source");
+    });
+
+    it("should make a dropdown with the correct number of options", function() {
+        var select = ShortestPathUtils.makeDropDown("source", 4);
+        expect(select.options.length).toEqual(4);
+    });
+
+    it("should populate dropdown options with node names in order", function() {
+        var select = ShortestPathUtils.makeDropDown("source", 3);
+        expect(select.options[0].innerHTML).toEqual("a");
+        expect(select.options[1].innerHTML).toEqual("b");
+        expect(select.options[2].innerHTML).toEqual("c");
+    });
+
+    it("should return nodes with correct index and value properties", function() {
+        var result = ShortestPathUtils.sortUniqueNodesFromDistances([0, 1, 1, 2]);
+        expect(result[0].index).toEqual(0);
+        expect(result[0].value).toEqual('a');
+        expect(result[2].index).toEqual(2);
+        expect(result[2].value).toEqual('c');
+    });
+
+    it("should return a single node when all distance values are identical", function() {
+        var result = ShortestPathUtils.sortUniqueNodesFromDistances([2, 2, 2, 2]);
+        expect(result.length).toEqual(1);
+        expect(result[0].index).toEqual(2);
+        expect(result[0].value).toEqual('c');
+    });
+
 });
