@@ -10,23 +10,51 @@ body {
 }
 
 /* ── Header ───────────────────────────────────────────────────────── */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #3e4552;
+  padding: 0 40px;
+}
+
+.header-text { flex: 1; }
+
 h1 {
   margin: 0;
-  padding: 28px 40px 10px;
+  padding: 28px 0 10px;
   font-size: 1.8rem;
   font-weight: 700;
   color: #ffffff;
-  background: #3e4552;
   letter-spacing: 0.01em;
 }
 
 h2 {
   margin: 0;
-  padding: 10px 40px 24px;
+  padding: 4px 0 24px;
   font-size: 0.95rem;
   font-weight: 400;
   color: #aab2c0;
-  background: #3e4552;
+}
+
+.header-nav a {
+  color: #aab2c0;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border: 1px solid #5b6475;
+  border-radius: 5px;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+  white-space: nowrap;
+}
+
+.header-nav a:hover {
+  color: #ffffff;
+  border-color: #8c95a6;
+  background: rgba(255,255,255,0.08);
 }
 
 /* ── Page layout ──────────────────────────────────────────────────── */
