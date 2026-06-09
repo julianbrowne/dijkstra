@@ -15,7 +15,7 @@ Or, simply clone the repo and open index.html in a browser.
 
 There are some basic jasmine tests to ensure the utility functions (mostly handy shortcuts for DOM manipulation) are working fine. These can be run by viewing tests/index.html
 
-## Usage
+## Adapting the code
 
 Create some 'nodes' in a format that can be parsed by d3.js:
 
@@ -72,9 +72,6 @@ Additionally, you can format the result for display and graph it using d3.js
 
     sp.drawGraph('graph'); // 'graph' is the id of the div to place the graph in
 
-
 ## Attributions
 
 - Favicon by [Grafixpoint](https://www.flaticon.com/free-icons/graph)
-
-
