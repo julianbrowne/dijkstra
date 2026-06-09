@@ -5,7 +5,11 @@
 
 This is a collection of simple scripts to illustrate Dijkstra's famous algorithm. The explanatory text can be found on the [blog](http://www.julianbrowne.com/article/viewer/shortest-path).
 
-Simply download and open index.html in a browser.
+## Usage
+
+See it in pages [here](http://julianbrowne.github.io/dijkstra/)
+
+Or, simply clone the repo and open index.html in a browser.
 
 ## Tests
 

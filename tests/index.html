@@ -6,6 +6,41 @@
 
   <link rel="shortcut icon" type="image/png" href="../images/jasmine_favicon.png">
 
+  <style>
+    #site-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #3e4552;
+      padding: 0 24px;
+      height: 52px;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    }
+    #site-toolbar .toolbar-title {
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+    #site-toolbar a {
+      color: #aab2c0;
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 5px 13px;
+      border: 1px solid #5b6475;
+      border-radius: 5px;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+    }
+    #site-toolbar a:hover {
+      color: #ffffff;
+      border-color: #8c95a6;
+      background: rgba(255,255,255,0.08);
+    }
+  </style>
+
   <link href="../javascripts/jasmine/lib/jasmine-core/jasmine.css" rel="stylesheet"/>
   <script type="text/javascript" src="../javascripts/jasmine/lib/jasmine-core/jasmine.js"></script>
   <script type="text/javascript">
@@ -64,5 +99,9 @@
 </head>
 
 <body>
+  <div id="site-toolbar">
+    <span class="toolbar-title">Jasmine Spec Runner: Shortest Path</span>
+    <a href="../index.html">&#8592; Back to App</a>
+  </div>
 </body>
 </html>
